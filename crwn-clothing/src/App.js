@@ -1,38 +1,42 @@
+import './categories.styles.scss';
+
 const App = () => {
-  return (
-    <dir className="catetories-container">
-      <div className="category-container">
+  const categories = [
+    {
+      id: 1,
+      title: 'Hats',
+    },
+    {
+      id: 2,
+      title: 'Jackets',
+    },
+    {
+      id: 3,
+      title: 'Sneakers',
+    },
+    {
+      id: 4,
+      title: 'Women',
+    },
+    {
+      id: 5,
+      title: 'Men',
+    },
+  ];
+
+  const renderCategory = categories.map((category) => {
+    return (
+      <div key={category.id} className="category-container">
+        <div className="background-image"></div>
         <div className="category-body-container">
-          <h2>HATS</h2>
+          <h2>{category.title}</h2>
           <p>Shop Now</p>
         </div>
       </div>
-      <div className="category-container">
-        <div className="category-body-container">
-          <h2>JACKETS</h2>
-          <p>Shop Now</p>
-        </div>
-      </div>
-      <div className="category-container">
-        <div className="category-body-container">
-          <h2>SNEAKERS</h2>
-          <p>Shop Now</p>
-        </div>
-      </div>
-      <div className="category-container">
-        <div className="category-body-container">
-          <h2>WOMENS</h2>
-          <p>Shop Now</p>
-        </div>
-      </div>
-      <div className="category-container">
-        <div className="category-body-container">
-          <h2>MENS</h2>
-          <p>Shop Now</p>
-        </div>
-      </div>
-    </dir>
-  );
+    );
+  });
+
+  return <div className="categories-container">{renderCategory}</div>;
 };
 
 export default App;
