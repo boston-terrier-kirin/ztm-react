@@ -13,7 +13,7 @@ const CartIcon = (props) => {
   return (
     <div onClick={toggleIsCartOpen} className="cart-icon-container">
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">{cartContext.cartCount}</span>
     </div>
   );
 };
