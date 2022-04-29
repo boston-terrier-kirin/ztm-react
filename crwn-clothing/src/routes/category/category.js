@@ -14,9 +14,11 @@ const Category = () => {
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
 
-  const productsToRender = products.map((product) => (
-    <ProductCard key={product.id} product={product} />
-  ));
+  const productsToRender =
+    products &&
+    products.map((product) => (
+      <ProductCard key={product.id} product={product} />
+    ));
 
   return <div className="category-conteiner">{productsToRender}</div>;
 };
