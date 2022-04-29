@@ -1,6 +1,4 @@
 import { createContext, useEffect, useState } from 'react';
-
-import SHOP_DATA from '../shop-data.js';
 import { getCategoriesAndDocuments } from '../utils/firebase/firebase.utils.js';
 
 export const CategoriesContext = createContext({
@@ -12,6 +10,7 @@ export const CategoriesProvider = (props) => {
   const value = { categoriesMap };
 
   // 初回データ投入用
+  // import SHOP_DATA from '../shop-data.js';
   // useEffect(() => {
   //   addCollectionAndDocuments('categories', SHOP_DATA);
   // }, []);

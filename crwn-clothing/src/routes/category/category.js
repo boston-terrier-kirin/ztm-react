@@ -7,6 +7,7 @@ import './category.styles.scss';
 const Category = () => {
   const { category } = useParams();
   const categoriesContext = useContext(CategoriesContext);
+
   const { categoriesMap } = categoriesContext;
   const [products, setProducts] = useState(categoriesMap[category]);
 
@@ -20,7 +21,12 @@ const Category = () => {
       <ProductCard key={product.id} product={product} />
     ));
 
-  return <div className="category-conteiner">{productsToRender}</div>;
+  return (
+    <>
+      <h2 className="category-title">{category.toUpperCase()}</h2>
+      <div className="category-conteiner">{productsToRender}</div>
+    </>
+  );
 };
 
 export default Category;
