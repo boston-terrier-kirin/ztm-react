@@ -3,13 +3,13 @@ import { createContext, useEffect, useState } from 'react';
 import SHOP_DATA from '../shop-data.js';
 import { getCategoriesAndDocuments } from '../utils/firebase/firebase.utils.js';
 
-export const ProductsContext = createContext({
-  products: [],
+export const CategoriesContext = createContext({
+  categoriesMap: {},
 });
 
-export const ProductsProvider = (props) => {
-  const [products, setProducts] = useState([]);
-  const value = { products };
+export const CategoriesProvider = (props) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
+  const value = { categoriesMap };
 
   // 初回データ投入用
   // useEffect(() => {
@@ -18,16 +18,16 @@ export const ProductsProvider = (props) => {
 
   useEffect(() => {
     const getCategoriesMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments();
-      console.log(categoryMap);
+      const categoriesMap = await getCategoriesAndDocuments();
+      setCategoriesMap(categoriesMap);
     };
 
     getCategoriesMap();
   }, []);
 
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {props.children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 };
