@@ -30,7 +30,7 @@ const Checkout = () => {
         </div>
       </div>
       {cartItemsToRender}
-      <span className="total">Total: ${cartContext.total}</span>
+      <span className="total">Total: ${cartContext.cartTotal}</span>
     </div>
   );
 };
