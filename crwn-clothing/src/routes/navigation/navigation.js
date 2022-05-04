@@ -1,16 +1,18 @@
 import { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown';
 import CartIcon from '../../components/cart-icon/cart-icon';
 import { CartContext } from '../../contexts/cart.context';
-import { UserContext } from '../../contexts/user.context';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 import './navigation.styles.scss';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 const Navigation = () => {
-  const userContext = useContext(UserContext);
   const cartContext = useContext(CartContext);
+  const currentUser = useSelector(selectCurrentUser);
 
   const signOutHandler = async () => {
     await signOutUser();
@@ -26,7 +28,7 @@ const Navigation = () => {
           <Link to="/shop" className="nav-link">
             SHOP
           </Link>
-          {userContext.currentUser ? (
+          {currentUser ? (
             <span onClick={signOutHandler} className="nav-link">
               SIGN OUT
             </span>
