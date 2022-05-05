@@ -6,6 +6,7 @@ class App extends React.Component {
     super();
 
     this.state = {
+      searchTerm: '',
       monsters: [],
     };
   }
@@ -19,7 +20,7 @@ class App extends React.Component {
         this.setState(
           () => {
             console.log('componentDidMount.setState1');
-            return { monsters: users };
+            return { monsters: users, filteredMonsters: users };
           },
           () => {
             console.log('componentDidMount.setState2');
@@ -28,13 +29,47 @@ class App extends React.Component {
       });
   }
 
+  /**
+   * onChangeに直接書くのではなく、外出しにしておけば、関数が1回しか作られないので、性能は良くなるらしい。
+   */
+  onSearchChange = (event) => {
+    const searchTerm = event.target.value.toLocaleLowerCase();
+    this.setState(
+      () => {
+        console.log('onSearchChange_1');
+        return { searchTerm };
+      },
+      () => {
+        console.log('onSearchChange_2');
+      }
+    );
+  };
+
   render() {
     console.log('render');
 
-    const monstersToRender = this.state.monsters.map((monster) => (
+    const { searchTerm, monsters } = this.state;
+    const { onSearchChange } = this;
+
+    const filteredMonsters = monsters.filter((monster) =>
+      monster.name.toLowerCase().includes(searchTerm)
+    );
+
+    const monstersToRender = filteredMonsters.map((monster) => (
       <div key={monster.id}>{monster.name}</div>
     ));
-    return <div>{monstersToRender}</div>;
+
+    return (
+      <div>
+        <input
+          type="text"
+          className="search-box"
+          placeholder="search monster"
+          onChange={onSearchChange}
+        />
+        {monstersToRender}
+      </div>
+    );
   }
 }
 
