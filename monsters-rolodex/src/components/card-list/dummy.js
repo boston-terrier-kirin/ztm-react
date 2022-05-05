@@ -3,7 +3,7 @@
  */
 const Dummy = () => {
   console.log('Dummy.render');
-  return <div>Dummy</div>;
+  return <></>;
 };
 
 export default Dummy;
