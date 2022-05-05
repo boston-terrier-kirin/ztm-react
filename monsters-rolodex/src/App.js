@@ -1,37 +1,40 @@
 import React from 'react';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    console.log('constructor');
+    super();
 
     this.state = {
-      name: 'Kirin',
+      monsters: [],
     };
   }
 
+  componentDidMount() {
+    console.log('componentDidMount');
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((res) => res.json())
+      .then((users) => {
+        this.setState(
+          () => {
+            console.log('componentDidMount.setState1');
+            return { monsters: users };
+          },
+          () => {
+            console.log('componentDidMount.setState2');
+          }
+        );
+      });
+  }
+
   render() {
-    return (
-      <div>
-        <p>Hi {this.state.name}</p>
-        <button
-          onClick={() => {
-            this.setState(
-              () => {
-                return {
-                  name: 'Kuroro',
-                };
-              },
-              // 最新の値が欲しい場合はこれ。
-              () => {
-                console.log(this.state);
-              }
-            );
-          }}
-        >
-          Change Name
-        </button>
-      </div>
-    );
+    console.log('render');
+
+    const monstersToRender = this.state.monsters.map((monster) => (
+      <div key={monster.id}>{monster.name}</div>
+    ));
+    return <div>{monstersToRender}</div>;
   }
 }
 
