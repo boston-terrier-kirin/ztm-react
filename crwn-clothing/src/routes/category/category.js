@@ -6,15 +6,11 @@ import { selectCatetoriesMap } from '../../store/categories/category.selector';
 import './category.styles.scss';
 
 const Category = () => {
-  console.log('💨', 'Category/render');
-
   const { category } = useParams();
   const categoriesMap = useSelector(selectCatetoriesMap);
   const [products, setProducts] = useState(categoriesMap[category]);
 
   useEffect(() => {
-    console.log('💨', 'Category/useEffect');
-
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
 
