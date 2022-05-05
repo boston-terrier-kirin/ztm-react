@@ -9,10 +9,14 @@ import Category from '../category/category';
 import './shop.styles.scss';
 
 const Shop = () => {
+  console.log('💨', 'Shop/render');
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getCategories = async () => {
+      console.log('💨', 'Shop/useEffect');
+
       const categories = await getCategoriesAndDocuments();
       dispatch(setCategories(categories));
     };
