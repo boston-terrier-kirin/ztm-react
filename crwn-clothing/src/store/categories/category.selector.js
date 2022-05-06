@@ -27,6 +27,13 @@ export const selectCatetoriesMap = createSelector(
   }
 );
 
+export const selectCatetoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  (categorySlice) => {
+    return categorySlice.isLoading;
+  }
+);
+
 /**
  * メモ化しないと、SING OUTしただけでも、Categoryがre-renderingされてしまう。
  */

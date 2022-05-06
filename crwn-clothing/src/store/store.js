@@ -11,7 +11,9 @@ import thunk from 'redux-thunk';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['user'],
+  // redux-thunkの導入でspinnerを表示できるようになったので、categoriesはローカルに持っておくメリットがなくなった。
+  // blacklist: ['user', 'categories'],
+  whitelist: ['cart'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
