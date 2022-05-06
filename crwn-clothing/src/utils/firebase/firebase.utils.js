@@ -30,6 +30,7 @@ const firebaseConfig = {
   appId: '1:452152543555:web:46d23f773c1da12315c7f6',
 };
 
+// firebaseAppに持つ必要なかった。
 // const firebaseApp = initializeApp(firebaseConfig);
 initializeApp(firebaseConfig);
 
@@ -107,7 +108,7 @@ export const createUserDocumentFromAuth = async (
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -132,4 +133,19 @@ export const signOutUser = async () => {
 
 export const onAuthStateChangedListener = (callback) => {
   return onAuthStateChanged(auth, callback);
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsbscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsbscribe();
+        resolve(userAuth);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
 };
