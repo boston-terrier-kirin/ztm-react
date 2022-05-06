@@ -1,7 +1,12 @@
+import { IMonster } from '../../App';
 import Card from '../card/card';
 import './card-list.styles.css';
 
-const CardList = (props) => {
+interface ICardListProps {
+  monsters: IMonster[];
+}
+
+const CardList = (props: ICardListProps) => {
   console.log('CardList', props.monsters);
 
   const monstersToRender = props.monsters.map((monster) => (

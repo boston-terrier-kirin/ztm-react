@@ -1,7 +1,13 @@
 import './card.styles.css';
 
-const Card = (props) => {
-  const { imageUrl, title, description } = props;
+interface ICardProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
+
+const Card = (props: ICardProps) => {
+  const { title, description, imageUrl } = props;
   return (
     <div className="card-container">
       <img src={imageUrl} alt={title} />

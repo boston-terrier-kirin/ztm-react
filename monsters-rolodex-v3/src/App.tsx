@@ -1,23 +1,35 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import CardList from './components/card-list/card-list';
 import Dummy from './components/card-list/dummy';
 import SearchBox from './components/search-box/search-box';
-
 import './App.css';
+import { getData } from './utils/data.utils';
+
+export interface IMonster {
+  id: string;
+  name: string;
+  email: string;
+}
 
 const App = () => {
   console.log('App');
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [monsters, setMonsters] = useState([]);
+  const [monsters, setMonsters] = useState<IMonster[]>([]);
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
   useEffect(() => {
     console.log('App.useEffect_1');
 
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((res) => res.json())
-      .then((users) => setMonsters(users));
+    const fetchUsers = async () => {
+      const users = await getData<IMonster[]>(
+        'https://jsonplaceholder.typicode.com/users'
+      );
+
+      setMonsters(users);
+    };
+
+    fetchUsers();
   }, []);
 
   // 検索条件が変わった場合のみfilterを走らせたいので、useEffectを使う。
@@ -30,7 +42,7 @@ const App = () => {
     setFilteredMonsters(filtered);
   }, [searchTerm, monsters]);
 
-  const onSearchChange = (event) => {
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     console.log('App.onSearchChange');
 
     const value = event.target.value.toLocaleLowerCase();
