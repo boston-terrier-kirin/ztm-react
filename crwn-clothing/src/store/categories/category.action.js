@@ -1,4 +1,3 @@
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
 import { CATEGORIES_ACTION_TYPES } from './category.types';
 
 export const setCategories = (categories) => {
@@ -28,13 +27,13 @@ export const fetchCategoriesFailed = (error) => {
   };
 };
 
-export const fetchCategoriesAsync = () => async (dispatch) => {
-  dispatch(fetchCategoriesStart());
-
-  try {
-    const categories = await getCategoriesAndDocuments();
-    dispatch(fetchCategoriesSuccess(categories));
-  } catch (err) {
-    dispatch(fetchCategoriesFailed(err));
-  }
-};
+// redux-sagaに変更⇒category.saga.jsへ。
+// export const fetchCategoriesAsync = () => async (dispatch) => {
+//   dispatch(fetchCategoriesStart());
+//   try {
+//     const categories = await getCategoriesAndDocuments();
+//     dispatch(fetchCategoriesSuccess(categories));
+//   } catch (err) {
+//     dispatch(fetchCategoriesFailed(err));
+//   }
+// };
