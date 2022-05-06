@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
 import { rootReducer } from './root-reducer';
+import thunk from 'redux-thunk';
 
 // 自分でmiddlewareを作る場合
 // import loggerMiddleware from './middleware/logger';
@@ -15,9 +16,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewares = [process.env.NODE_ENV === 'development' && logger].filter(
-  Boolean
-);
+const middlewares = [
+  process.env.NODE_ENV === 'development' && logger,
+  thunk,
+].filter(Boolean);
 
 const composeEnhancer =
   (process.env.NODE_ENV !== 'production' &&

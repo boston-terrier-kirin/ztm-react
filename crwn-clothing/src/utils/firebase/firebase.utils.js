@@ -11,7 +11,8 @@ import {
 } from 'firebase/auth';
 import {
   collection,
-  writeBatch,
+  // 初回データ投入用
+  // writeBatch,
   getFirestore,
   doc,
   getDoc,
@@ -29,7 +30,8 @@ const firebaseConfig = {
   appId: '1:452152543555:web:46d23f773c1da12315c7f6',
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
