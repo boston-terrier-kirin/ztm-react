@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * generatorを使うと、functionから複数回emitするような動きができるようになる。
+       */
+      function* gen(i) {
+        yield i;
+        yield i + 10;
+        return 99;
+      }
+
+      const g = gen(5);
+      console.log('💨', 'console.log(g)');
+      console.log(g);
+
+      console.log('🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦 emmit_1');
+      console.log('💨', 'g.next()_1');
+      const result_1 = g.next();
+
+      console.log('💨', 'console.log(result_1) done=false');
+      console.log(result_1);
+
+      console.log('🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦 emmit_2');
+      console.log('💨', 'g.next()_2');
+      const result_2 = g.next();
+
+      console.log('💨', 'console.log(result_2) done=false');
+      console.log(result_2);
+
+      console.log('🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦 emmit_3 returnするのでこれが最終の値');
+      console.log('💨', 'g.next()_3');
+      const result_3 = g.next();
+
+      console.log('💨', 'console.log(result_3) done=true');
+      console.log(result_3);
+    </script>
+  </body>
+</html>
