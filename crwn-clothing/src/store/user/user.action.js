@@ -35,6 +35,10 @@ export const checkUserSession = () => {
 // user.sagaのsignInWithGoogle/signInWithEmailが呼ばれる。
 //   ↓
 // signInSuccess/signInFailedが呼び戻される。
+//   ↓
+// userReducerのSIGN_IN_SUCCESSで、currentUserがセットされる。
+//   ↓
+// navigationでuseSelectorをしているので、currentUserがセットされたことが検知できて、SIGN OUT に変わる。
 
 export const googleSignInStart = () => {
   return {
@@ -77,6 +81,13 @@ export const signInFailed = (err) => {
 // ★user.sagaのsignInAfterSignUpが呼ばれる。
 //   ↓
 // ★signInSuccessが呼び戻される。
+//   ↓
+// ※sign-upでgetSnapshotFromUserAuthを呼ばずに、
+//   sign-inを別で呼んでいるのは、userReducerがSIGN_IN_SUCCESSの時にcurrentUserをupdateしているため。
+//   ↓
+// userReducerのSIGN_IN_SUCCESSで、currentUserがセットされる。
+//   ↓
+// navigationでuseSelectorをしているので、currentUserがセットされたことが検知できて、SIGN OUT に変わる。
 
 export const signUpStart = (email, password, displayName) => {
   return {
@@ -95,6 +106,38 @@ export const signUpSuccess = (user, additionalInformation) => {
 export const signUpFailed = (err) => {
   return {
     type: USER_ACTION_TYPES.SIGN_UP_FAILED,
+    payload: err,
+  };
+};
+
+// ■sign-outの流れ
+// navigationでsignOutStartを呼び出す。
+//   ↓
+// user.sagaのonSignOutStartが呼ばれる。
+//   ↓
+// user.sagaのsignOutが呼ばれる。
+//   ↓
+// signOutSuccess/signOutFailedが呼び戻される。
+//   ↓
+// userReducerのSIGN_OUT_SUCCESSで、currentUserがnullになる。
+//   ↓
+// navigationでuseSelectorをしているので、currentUserがnullになったことが検知できて、SIGN IN に変わる。
+
+export const signOutStart = () => {
+  return {
+    type: USER_ACTION_TYPES.SIGN_OUT_START,
+  };
+};
+
+export const signOutSuccess = () => {
+  return {
+    type: USER_ACTION_TYPES.SIGN_OUT_SUCCESS,
+  };
+};
+
+export const signOutFailed = (err) => {
+  return {
+    type: USER_ACTION_TYPES.SIGN_OUT_FAILED,
     payload: err,
   };
 };

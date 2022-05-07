@@ -1,20 +1,23 @@
 import { Link, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { signOutUser } from '../../utils/firebase/firebase.utils';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown';
 import CartIcon from '../../components/cart-icon/cart-icon';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
+import { signOutStart } from '../../store/user/user.action';
 import './navigation.styles.scss';
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
 
-  const signOutHandler = async () => {
-    await signOutUser();
+  const signOutHandler = () => {
+    // redux-sagaで置き換え。
+    // await signOutUser();
+    dispatch(signOutStart());
   };
 
   return (
