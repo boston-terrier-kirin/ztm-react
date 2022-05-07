@@ -8,7 +8,7 @@ export const setCategories = (categories) => {
 };
 
 // redux-saga適用後
-// shopでfetchCategoriesStartを呼び出す。
+// ShopでfetchCategoriesStartを呼び出す。
 // 　↓
 //     ★categoriesReducerのFETCH_CATEGORIES_STARTでisLoadingがtrueになる。
 //     ★Category/CategoriesPreviewでuseSelectしているのでSpinnerを描画する。
