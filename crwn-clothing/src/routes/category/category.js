@@ -21,7 +21,9 @@ const Category = () => {
   }, [category, categoriesMap]);
 
   let contentsToRender;
-  if (isLoading) {
+  // 初回にhttp://localhost:3000/から各カテゴリからアクセスした場合に、productsがnullになっているようなので、!productsを追加。
+  // isLoadingが終わって⇒レンダリング⇒productsがnull⇒useSelector(selectCatetoriesMap)でproductsに値が入る、の順になっているためと推測。
+  if (isLoading || !products) {
     contentsToRender = <Spinner />;
   } else {
     const productsToRender = products.map((product) => (
